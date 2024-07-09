@@ -48,6 +48,19 @@ export function updateSceneRenderers() { // very costly iterations
         if(!label.node.active)continue;
         label.updateLabel();
     }
+
+    // fonts
+    const allLocalizedFonts: any[] = [];
+    for (let i = 0; i < rootNodes.length; ++i) {
+        let labels = rootNodes[i].getComponentsInChildren('LocalizedFont');
+        Array.prototype.push.apply(allLocalizedFonts, labels);
+    }
+    for (let i = 0; i < allLocalizedFonts.length; ++i) {
+        let label = allLocalizedFonts[i];
+        if(!label.node.active)continue;
+        label.updateFont();
+    }
+
     // walk all nodes with localize sprite and update
     const allLocalizedSprites: any[] = [];
     for (let i = 0; i < rootNodes.length; ++i) {
