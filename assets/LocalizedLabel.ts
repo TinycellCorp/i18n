@@ -29,6 +29,7 @@ export class LocalizedLabel extends Component {
     }
 
     fetchRender () {
+        if (this.label) { return; }
         let label = this.getComponent('cc.Label') as Label;
         if (label) {
             this.label = label;
@@ -38,6 +39,7 @@ export class LocalizedLabel extends Component {
     }
 
     updateLabel () {
+        this.fetchRender();
         this.label && (this.label.string = i18n.t(this.key));
     }
 }

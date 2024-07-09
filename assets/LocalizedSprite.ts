@@ -31,16 +31,18 @@ export class LocalizedSprite extends Component {
         this.fetchRender();
     }
 
-    fetchRender () {
+    fetchRender() {
+        if (this.sprite) { return; }
         let sprite = this.getComponent('cc.Sprite') as Sprite;
         if (sprite) {
             this.sprite = sprite;
             this.updateSprite();
             return;
-        } 
+        }
     }
 
-    updateSprite () {
+    updateSprite() {
+        this.fetchRender();
         for (let i = 0; i < this.spriteList.length; i++) {
             const item = this.spriteList[i];
             // @ts-ignore

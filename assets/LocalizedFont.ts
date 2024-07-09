@@ -30,6 +30,7 @@ export class LocalizedFont extends Component {
     }
 
     fetchRender() {
+        if(this.label) { return; }
         let label = this.getComponent('cc.Label') as Label;
         if (label) {
             this.label = label;
@@ -39,6 +40,7 @@ export class LocalizedFont extends Component {
     }
 
     updateFont() {
+        this.fetchRender();
         for (let i = 0; i < this.spriteList.length; i++) {
             const item = this.spriteList[i];
             // @ts-ignore
