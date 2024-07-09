@@ -14,7 +14,7 @@ export class LocalizedLabel extends Component {
 
     onLoad() {
         if (!i18n.ready) {
-            i18n.init('zh');
+            i18n.init(i18n._language);
         }
         this.fetchRender();
     }

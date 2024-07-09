@@ -1,26 +1,24 @@
-
 import * as i18n from './LanguageData';
-
-import { _decorator, Component, SpriteFrame, Sprite } from 'cc';
+import { _decorator, Component, Font, Label, Node } from 'cc';
 const { ccclass, property, executeInEditMode } = _decorator;
 
-@ccclass('LocalizedSpriteItem')
-class LocalizedSpriteItem {
+@ccclass('LocalizedFontItem')
+class LocalizedFontItem {
     @property
     language: string = 'zh';
     @property({
-        type: SpriteFrame,
+        type: Font,
     })
-    spriteFrame: SpriteFrame | null = null;
+    font: Font | null = null;
 }
 
-@ccclass('LocalizedSprite')
+@ccclass('LocalizedFont')
 @executeInEditMode
-export class LocalizedSprite extends Component {
-    sprite: Sprite | null = null;
+export class LocalizedFont extends Component {
+    label: Label | null = null;
 
     @property({
-        type: LocalizedSpriteItem,
+        type: LocalizedFontItem,
     })
     spriteList = [];
 
@@ -31,24 +29,26 @@ export class LocalizedSprite extends Component {
         this.fetchRender();
     }
 
-    fetchRender () {
-        let sprite = this.getComponent('cc.Sprite') as Sprite;
-        if (sprite) {
-            this.sprite = sprite;
-            this.updateSprite();
+    fetchRender() {
+        let label = this.getComponent('cc.Label') as Label;
+        if (label) {
+            this.label = label;
+            this.updateFont();
             return;
-        } 
+        }
     }
 
-    updateSprite () {
+    updateFont() {
         for (let i = 0; i < this.spriteList.length; i++) {
             const item = this.spriteList[i];
             // @ts-ignore
             if (item.language === i18n._language) {
                 // @ts-ignore
-                this.sprite.spriteFrame = item.spriteFrame;
+                this.label.font = item.font;
                 break;
             }
         }
     }
 }
+
+
