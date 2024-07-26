@@ -19,12 +19,12 @@ export function init(language: string) {
  */
 export function t(key: string) {
     const win: any = window;
-    
+
     if (!win.languages) {
         return key;
     }
     const searcher = key.split('.');
-    
+
     let data = win.languages[_language];
     for (let i = 0; i < searcher.length; i++) {
         data = data[searcher[i]];
@@ -45,7 +45,7 @@ export function updateSceneRenderers() { // very costly iterations
     }
     for (let i = 0; i < allLocalizedLabels.length; ++i) {
         let label = allLocalizedLabels[i];
-        if(!label.node.active)continue;
+        if (!label.node.active) continue;
         label.updateLabel();
     }
 
@@ -57,7 +57,19 @@ export function updateSceneRenderers() { // very costly iterations
     }
     for (let i = 0; i < allLocalizedFonts.length; ++i) {
         let label = allLocalizedFonts[i];
-        if(!label.node.active)continue;
+        if (!label.node.active) continue;
+        label.updateFont();
+    }
+
+    // rich fonts
+    const allLocalizedRichFonts: any[] = [];
+    for (let i = 0; i < rootNodes.length; ++i) {
+        let labels = rootNodes[i].getComponentsInChildren('LocalizedRichFont');
+        Array.prototype.push.apply(allLocalizedRichFonts, labels);
+    }
+    for (let i = 0; i < allLocalizedRichFonts.length; ++i) {
+        let label = allLocalizedRichFonts[i];
+        if (!label.node.active) continue;
         label.updateFont();
     }
 
@@ -69,7 +81,7 @@ export function updateSceneRenderers() { // very costly iterations
     }
     for (let i = 0; i < allLocalizedSprites.length; ++i) {
         let sprite = allLocalizedSprites[i];
-        if(!sprite.node.active)continue;
+        if (!sprite.node.active) continue;
         sprite.updateSprite();
     }
 }
