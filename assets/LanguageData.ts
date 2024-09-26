@@ -85,6 +85,18 @@ export function updateSceneRenderers() { // very costly iterations
         skeleton.updateSkeleton();
     }
 
+    // spine skeleton animations
+    const allLocalizedSkeletonAnimations: any[] = [];
+    for (let i = 0; i < rootNodes.length; ++i) {
+        let skeletons = rootNodes[i].getComponentsInChildren('LocalizedSkeletonAnimation');
+        Array.prototype.push.apply(allLocalizedSkeletonAnimations, skeletons);
+    }
+    for (let i = 0; i < allLocalizedSkeletonAnimations.length; ++i) {
+        let skeleton = allLocalizedSkeletonAnimations[i];
+        if (!skeleton.node.active) continue;
+        skeleton.updateSkeleton();
+    }
+
     // walk all nodes with localize sprite and update
     const allLocalizedSprites: any[] = [];
     for (let i = 0; i < rootNodes.length; ++i) {
